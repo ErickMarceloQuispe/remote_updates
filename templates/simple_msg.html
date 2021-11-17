@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+    Mensaje Simple
+{% endblock %}
+{% block content %}
+    {% for item in msg %}
+        <h1>Nombre de Columna:  {{item[1]}}</h1>
+    {% endfor %}
+{% endblock %}

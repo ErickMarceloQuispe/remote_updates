@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+    SQL Execute Form
+{% endblock %}
+{% block content %}
+    <h2>Ejemplos:<br> pragma table_info(builds);<br>pragma table_info(sql_sentences);<br>pragma table_info(build_sql_sentences);</h2>
+    <form action="/sql" method="POST">
+        <input type="text" name="sql_sentence">
+        <input type="submit" value="Ejecutar SQL">
+    </form>
+{% endblock %}
