@@ -10,8 +10,8 @@ initial_server_sql=[
 
     """create table sql_sentences (
             sql_sentence_id INTEGER NOT NULL PRIMARY KEY,
-            description varchar(255),
-            sql_sentence varchar(1000) NOT NULL
+            sql_sentence BLOB NOT NULL,
+            description varchar(255)
         );""",
 
     """create table build_sql_sentences (
