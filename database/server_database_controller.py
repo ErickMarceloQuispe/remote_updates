@@ -21,3 +21,17 @@ def initial_config():
     if(not exist_main_tables):
         execute_sql_sentences(GSql.initial_server_sql)
         execute_sql_sentences(GSql.desc_initial_server_sql)
+
+def create_build(build_desc,sql_arr):
+    count=0
+    sql_complete=["INSERT INTO builds(description) VALUES ('%s');" %build_desc]
+    for sql_sentence in sql_arr:
+        count+=1
+        sql_complete.append("INSERT INTO sql_sentences(sql_sentence) VALUES ('%s');" %sql_sentence)
+        sql_complete.append(
+            """INSERT INTO build_sql_sentences(build_id,sql_sentence_id,sequence)
+                VALUES (
+                    (SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1),
+                    (SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),
+                    %s
+            );"""%count)
