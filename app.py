@@ -23,4 +23,5 @@ def building():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Just Select Validator    
+#Pending: - Just Select Validator
+#         - Añadir build_id en updates 

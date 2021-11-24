@@ -29,22 +29,24 @@ first_build=[
         """PRAGMA foreign_keys = ON;""",
         """Create TABLE updates(update_id VARCHAR(255) NOT NULL PRIMARY KEY,
                             name VARCHAR(255),
+                            build_id INTEGER NOT NULL,
                             status VARCHAR(255) DEFAULT "Downloaded",
                             created_at timestamp  NOT NULL  DEFAULT current_timestamp,
-                            updated_at timestamp  NOT NULL  DEFAULT current_timestamp);""",
+                            updated_at timestamp  NOT NULL  DEFAULT current_timestamp,
+                            FOREIGN KEY (build_id) REFERENCES builds(build_id));""",
 
         """CREATE TRIGGER LastUpdate_Updates UPDATE OF update_id,name ON updates
                 BEGIN
                 UPDATE updates SET updated_at=CURRENT_TIMESTAMP WHERE id=id;
                 END;""",
 
-        """CREATE TABLE changes(change_id VARCHAR(255) NOT NULL PRIMARY KEY,
+        """CREATE TABLE changes(change_id INTEGER PRIMARY KEY AUTOINCREMENT,
                             update_id VARCHAR(255) NOT NULL,
                             description VARCHAR(255),
                             sequence INTEGER not NULL,
                             FOREIGN KEY (update_id) REFERENCES updates(update_id));""",
 
-        """CREATE TABLE change_sql_sentences(change_id VARCHAR(255) NOT NULL,
+        """CREATE TABLE change_sql_sentences(change_id INTEGER NOT NULL,
                             sql_sentence_id VARCHAR(255) NOT NULL,
                             sequence INTEGER not NULL,
                             FOREIGN KEY (change_id) REFERENCES changes(change_id),
