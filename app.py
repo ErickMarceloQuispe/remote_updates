@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 
-from database.server_database_controller import initial_config,execute_sql_sentences
+from database.server_database_controller import initial_config,execute_sql_sentences,run_build
 
 app = Flask(__name__)
 
@@ -13,6 +13,11 @@ def hello_world():
 @app.route('/sql',methods=["POST"])
 def sql_execute():
     result=execute_sql_sentences([request.form.get("sql_sentence")])
+    return render_template("simple_msg.html",msg=result)
+
+@app.route('/build',methods=["POST"])
+def building():
+    result=run_build(  int(request.form.get("build_id"))  )
     return render_template("simple_msg.html",msg=result)
 
 if __name__ == '__main__':

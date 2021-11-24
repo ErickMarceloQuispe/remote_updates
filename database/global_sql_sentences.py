@@ -3,19 +3,17 @@ initial_server_sql=[
     """DROP TABLE IF EXISTS build_sql_sentences;""",
     """DROP TABLE IF EXISTS builds;""",
     """DROP TABLE IF EXISTS sql_sentences;""",
-    """create table builds (
+    """CREATE TABLE builds (
             build_id INTEGER PRIMARY KEY AUTOINCREMENT,
             description varchar(255)
         );""",
 
     """CREATE TABLE sql_sentences(
             sql_sentence_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            sql_sentence BLOB NOT NULL,
-            status VARCHAR(255) DEFAULT "No Asignado",
-            description VARCHAR(255) DEFAULT "Sin Descripción"
+            sql_sentence BLOB NOT NULL
         );""",
 
-    """create table build_sql_sentences (
+    """CREATE TABLE build_sql_sentences (
             build_id INTEGER NOT NULL,
             sql_sentence_id INTEGER NOT NULL,
             sequence INTEGER NOT NULL,
@@ -27,7 +25,6 @@ reinit_server_required=["""select DISTINCT count(tbl_name) from sqlite_master WH
 first_build=[
         """DROP TABLE IF EXISTS updates;""",
         """DROP TABLE IF EXISTS changes;""",
-        """DROP TABLE IF EXISTS sql_sentences;""",
         """DROP TABLE IF EXISTS change_sql_sentences;""",
         """PRAGMA foreign_keys = ON;""",
         """Create TABLE updates(update_id VARCHAR(255) NOT NULL PRIMARY KEY,
