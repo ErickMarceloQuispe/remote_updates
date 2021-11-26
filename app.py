@@ -12,7 +12,7 @@ def hello_world():
 
 @app.route('/sql',methods=["POST"])
 def sql_execute():
-    result=execute_sql_sentences([request.form.get("sql_sentence")])
+    result=execute_sql_sentences(request.form.get("sql_sentence"))
     return render_template("simple_msg.html",msg=result)
 
 @app.route('/build',methods=["POST"])

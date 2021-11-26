@@ -4,6 +4,8 @@ import database.global_sql_sentences as GSql
 DB_NAME="database/test_remote.db"
 
 def execute_sql_sentences(sql_sentences):
+    if(type(sql_sentences)==str):
+        sql_sentences=sql_sentences.split(";")
     conn = sqlite3.connect(DB_NAME)
     c=conn.cursor()
     results=[]
