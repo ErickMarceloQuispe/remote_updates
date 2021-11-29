@@ -41,12 +41,25 @@ def create_build(build_desc,sql_arr):
             );"""%count)
     execute_sql_sentences(sql_complete)
 
-def run_build(build_id):
+def get_build_sql_sentences(build_id):
     sql_sentence="""SELECT sql_sentence from sql_sentences where sql_sentence_id in 
                 (SELECT sql_sentence_id from build_sql_sentences where build_id = %s ORDER By sequence desc)"""%build_id
     results=execute_sql_sentences([sql_sentence])
     build_sql_sentences=[]
     for item in results:
         build_sql_sentences.append(item[0])
-    results=execute_sql_sentences(build_sql_sentences)
+    return build_sql_sentences
+
+def run_build(build_id):
+    results=execute_sql_sentences(get_build_sql_sentences(build_id))
     return results
+
+def get_update_sql_sentences(date):
+    sql_sentence="" 
+    if(date!=None):
+        sql_sentence="""select * from updates where created_at > %s order by created_at;
+                    select * from updates order by created_at;"""%date
+    else:
+        sql_sentence="select * from updates order by created_at;"
+    results=execute_sql_sentences([sql_sentence])
+    print(results)

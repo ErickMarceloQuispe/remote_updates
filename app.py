@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import json
-from database.server_database_controller import initial_config,execute_sql_sentences,run_build
+from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_sentences
 
 app = Flask(__name__)
 
@@ -26,8 +26,23 @@ def building():
     result=run_build(  int(request.form.get("build_id"))  )
     return render_template("simple_msg.html",msg=result)
 
+#Get build sql sentences to client
+@app.route('/build-sql',methods=["POST"])
+def get_build_sql():
+    result=get_build_sql_sentences(request.form.get("build_id"))
+    _json={}
+    count=1 
+    for item in result:
+        _json[count]=item
+        count+=1
+    return (_json)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Just Select Validator
-#         - Añadir build_id en updates 
+#Pending: - Obtener sentencias sql como servicio de API sql(fecha)
+#         - Forma facil de añadir version
+#         - Just Select Validator X
+
+
+#builds.description , Update_Id , updates.name , changes.description , changes.sequence , sql_sentences(arr) , change_sql_sentences.sequence
