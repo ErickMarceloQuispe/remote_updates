@@ -24,6 +24,7 @@ def initial_config():
         execute_sql_sentences(GSql.initial_server_sql)
         execute_sql_sentences(GSql.desc_initial_server_sql)
         create_build("First Build",GSql.first_build)
+        run_build(1)
 
 def create_build(build_desc,sql_arr): 
     count=0
