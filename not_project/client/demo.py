@@ -6,12 +6,12 @@ DB_NAME="client.db"
 def print_json(json_obj):
     arr_keys=json_obj.keys()
     for index in arr_keys:
-		print("")
-		# if(type(json_obj[index])==list):
-		# 	for item in json_obj[index]:
-		# 		print(str(item)+" | ")  
-		# else:
-
+        result=json_obj[index]
+        if(type(result)==list):
+            for item in result:
+                print(str(item)+" | ")
+        else:
+            print(result)
 
 def execute_sql_sentences(sql_sentences):
     if(type(sql_sentences)==str):
@@ -53,5 +53,4 @@ _json = {"build_id":
 response = requests.post(url,_json)
 #print(response.text)
 json_response=json.loads(response.text)
-print(type([1,2]))
-#print_json(json_response)
+print_json(json_response)

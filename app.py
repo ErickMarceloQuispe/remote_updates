@@ -40,8 +40,8 @@ def get_build_sql():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Obtener sentencias sql como servicio de API sql(fecha)
-#         - Forma facil de añadir version
+#Pending: - Forma facil de añadir version (build)
+#         - Obtener sentencias sql como servicio de API sql(fecha)
 #         - Just Select Validator X
 
 

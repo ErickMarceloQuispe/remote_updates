@@ -54,7 +54,7 @@ def run_build(build_id):
     results=execute_sql_sentences(get_build_sql_sentences(build_id))
     return results
 
-def get_update_sql_sentences(date):
+def update_needs_query(date):
     sql_sentence="" 
     if(date!=None):
         sql_sentence="""select * from updates where created_at > %s order by created_at;
