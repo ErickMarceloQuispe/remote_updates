@@ -41,6 +41,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 #Pending: - Forma facil de añadir version (build)
+#            - Servicio Build-build Quiza Directo y usando Split(;) o como una sola sentencia??
 #         - Obtener sentencias sql como servicio de API sql(fecha)
 #         - Just Select Validator X
 

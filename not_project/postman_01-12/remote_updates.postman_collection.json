@@ -46,7 +46,7 @@
 							"formdata": [
 								{
 									"key": "sql_sentence",
-									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.5\",                                                    \"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n                                                   \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test VALUES('Hola')\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);\n                    \n                    \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES('Hola')\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.0\",                                                    \"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n                                                   \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test VALUES('Hola')\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);\n                    \n                    \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES('Hola')\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
 									"type": "text"
 								}
 							]
@@ -74,7 +74,7 @@
 							"formdata": [
 								{
 									"key": "sql_sentence",
-									"value": "select created_at from updates where update_id = \"v1.1\" limit 1",
+									"value": "select created_at from updates order by created_at desc limit 1",
 									"type": "text"
 								}
 							]
@@ -93,7 +93,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Update SQL wDate",
+					"name": "Get Build SQL wDate",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -102,7 +102,35 @@
 							"formdata": [
 								{
 									"key": "sql_sentence",
-									"value": "select build_id from updates where created_at > \"2021-01-01\" order by created_at;",
+									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from build_sql_sentences where build_id in (select build_id from updates where created_at > \"2021-01-29 18:07:25\" order by created_at));",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/sql",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Useless: Get Update SQL wUpdate_id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "sql_sentence",
+									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from change_sql_sentences where change_id in (select change_id from changes where update_id=\"v1.0\"));",
 									"type": "text"
 								}
 							]
