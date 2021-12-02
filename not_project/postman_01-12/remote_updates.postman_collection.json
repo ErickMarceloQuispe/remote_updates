@@ -102,7 +102,7 @@
 							"formdata": [
 								{
 									"key": "sql_sentence",
-									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from build_sql_sentences where build_id in (select build_id from updates where created_at > \"2021-01-29 18:07:25\" order by created_at));",
+									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from build_sql_sentences where build_id in (select build_id from updates where created_at > \"2021-12-02 18:31:23\" order by created_at));",
 									"type": "text"
 								}
 							]
@@ -130,7 +130,7 @@
 							"formdata": [
 								{
 									"key": "sql_sentence",
-									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from change_sql_sentences where change_id in (select change_id from changes where update_id=\"v1.0\"));",
+									"value": "SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( select sql_sentence_id from change_sql_sentences where change_id in (select change_id from changes where update_id=\"v1.18\"));",
 									"type": "text"
 								}
 							]
@@ -143,6 +143,72 @@
 							"port": "5000",
 							"path": [
 								"sql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "testing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "Test Description 3",
+									"type": "text"
+								},
+								{
+									"key": "sql_sentences",
+									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.3\",                                                    \"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n                                                   \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",1);\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test VALUES('Hola')\");\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);\n                    \n                    \nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY update_id DESC LIMIT 1),\"Modulo de Prueba\",2);\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n                    \nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES('Hola')\");\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/add-build",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"add-build"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Build",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "Test Description 4",
+									"type": "text"
+								},
+								{
+									"key": "sql_sentences",
+									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.19\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES(Hola)\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/add-build",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"add-build"
 							]
 						}
 					},
@@ -178,7 +244,7 @@
 					"formdata": [
 						{
 							"key": "sql_sentence",
-							"value": "SELECT * FROM builds;",
+							"value": "SELECT * FROM updates ORDER BY created_at DESC LIMIT 1;",
 							"type": "text"
 						}
 					]

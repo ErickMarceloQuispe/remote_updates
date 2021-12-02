@@ -21,16 +21,14 @@ def execute_sql_sentences(sql_sentences):
             c.execute(sql_sentence)
             for item in c.fetchall():
                 results.append(item)
-        conn.commit()
-        conn.close()
         return results
     except sqlite3.IntegrityError:
         return ["Posible repetición de Primary Key"]
     except Exception as e:
-        print(e)
+        return [str(e)]
+    finally:
         conn.commit()
         conn.close
-        return ["Fallo"]
     
 
 def initial_config():
@@ -59,7 +57,6 @@ def create_build(build_desc,sql_sentences):
             );"""%count)
     execute_sql_sentences(sql_complete)
     build_id=execute_sql_sentences(["SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1"])[0][0]
-    print("BUILD: "+str(build_id))
     results=run_build(build_id)
     return results
 
