@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import json
-from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_sentences
+from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_sentences,create_build
 
 app = Flask(__name__)
 
@@ -21,6 +21,7 @@ def sql_execute():
     return (_json)
     #return render_template("simple_msg.html",msg=result)
 
+#TO ERASE: Execute a specific BUILD
 @app.route('/build',methods=["POST"])
 def building():
     result=run_build(  int(request.form.get("build_id"))  )
@@ -37,11 +38,19 @@ def get_build_sql():
         count+=1
     return (_json)
 
+@app.route('/add-build',methods=["POST"])
+def build():
+    description=request.form.get("description")
+    sql_sentences=request.form.get("sql_sentences")
+    results=create_build(description,sql_sentences)
+    return render_template("simple_msg.html",msg=results)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
 #Pending: - Forma facil de añadir version (build)
 #            - Servicio Build-build Quiza Directo y usando Split(;) o como una sola sentencia??
+#            - Juntar Contruccion Inicial con Build nº1??
 #         - Obtener sentencias sql como servicio de API sql(fecha)
 #         - Just Select Validator X
 
