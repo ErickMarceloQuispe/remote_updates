@@ -29,7 +29,7 @@ first_build=[
         """PRAGMA foreign_keys = ON;""",
         """Create TABLE updates(update_id VARCHAR(255) NOT NULL PRIMARY KEY,
                             name VARCHAR(255),
-                            build_id INTEGER NOT NULL,
+                            build_id INTEGER NOT NULL DEFAULT 0,
                             status VARCHAR(255) DEFAULT "Downloaded",
                             created_at timestamp  NOT NULL  DEFAULT current_timestamp,
                             updated_at timestamp  NOT NULL  DEFAULT current_timestamp,

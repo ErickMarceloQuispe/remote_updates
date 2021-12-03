@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import json
-from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_sentences,create_build
+from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_wId,get_build_sql_wDate,create_build
 
 app = Flask(__name__)
 
@@ -27,10 +27,21 @@ def building():
     result=run_build(  int(request.form.get("build_id"))  )
     return render_template("simple_msg.html",msg=result)
 
-#Get build sql sentences to client
-@app.route('/build-sql',methods=["POST"])
-def get_build_sql():
-    result=get_build_sql_sentences(request.form.get("build_id"))
+#Get build sql sentences with  to client
+@app.route('/build-sql-date',methods=["POST"])
+def get_build_sql_date():
+    result=get_build_sql_wDate(request.form.get("last_update_date"))
+    _json={}
+    count=1 
+    for item in result:
+        _json[count]=item
+        count+=1
+    return (_json)
+
+    #Get build sql sentences to client
+@app.route('/build-sql-id',methods=["POST"])
+def get_build_sql_id():
+    result=get_build_sql_wId(request.form.get("build_id"))
     _json={}
     count=1 
     for item in result:
@@ -48,7 +59,9 @@ def build():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Forma facil de añadir version (build)
+#Pending: - Usar o no usar mofied_by
+#         - Problema al Realizar Creción de Update mientras la app se usa por parte del cliente (Primero creamos Build, luego Update)
+#         - Forma facil de añadir version (build)
 #            - Servicio Build-build Quiza Directo y usando Split(;) o como una sola sentencia??
 #            - Juntar Contruccion Inicial con Build nº1??
 #         - Obtener sentencias sql como servicio de API sql(fecha)
