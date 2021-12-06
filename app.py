@@ -59,13 +59,12 @@ def build():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Usar o no usar mofied_by
-#         - Problema al Realizar Creción de Update mientras la app se usa por parte del cliente (Primero creamos Build, luego Update)
-#         - Forma facil de añadir version (build)
-#            - Servicio Build-build Quiza Directo y usando Split(;) o como una sola sentencia??
-#            - Juntar Contruccion Inicial con Build nº1??
-#         - Obtener sentencias sql como servicio de API sql(fecha)
-#         - Just Select Validator X
-
+#Pending: - Documentar Código 
+#         - Eliminar el uso de updated_at
+#         - Eliminar changes_sql_sentences y build_sql_sentences
+#         - Evaluar sql_sentences como pedazos largos de código
+#         - Servidor que Implemente los cambios automaticamente 
+#         - Interfaz para agregar más facil los build
+#         - Seguridad para interfaz gráfica
 
 #builds.description , Update_Id , updates.name , changes.description , changes.sequence , sql_sentences(arr) , change_sql_sentences.sequence

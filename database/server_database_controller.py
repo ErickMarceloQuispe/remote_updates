@@ -80,14 +80,3 @@ def get_build_sql_wId(build_id):
 def run_build(build_id):
     results=execute_sql_sentences(get_build_sql_wId(build_id))
     return results
-
-#TO CLIENT
-def update_needs_query(date):
-    sql_sentence="" 
-    if(date!=None):
-        sql_sentence="""select * from updates where created_at > %s order by created_at;
-                    select * from updates order by created_at;"""%date
-    else:
-        sql_sentence="select * from updates order by created_at;"
-    results=execute_sql_sentences([sql_sentence])
-    print(results)

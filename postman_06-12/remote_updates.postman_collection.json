@@ -186,12 +186,12 @@
 							"formdata": [
 								{
 									"key": "description",
-									"value": "Test Description 4",
+									"value": "Test Description 1",
 									"type": "text"
 								},
 								{
 									"key": "sql_sentences",
-									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.19\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES(Hola)\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.1\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES( `Hola` )\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
 									"type": "text"
 								}
 							]
@@ -212,7 +212,7 @@
 			]
 		},
 		{
-			"name": "Home",
+			"name": "Home (Abrir en Navegador)",
 			"request": {
 				"method": "GET",
 				"header": [],
