@@ -3,11 +3,13 @@ import database.global_sql_sentences as GSql
 
 DB_NAME="database/test_remote.db"
 
+#Convierte los bloques de SQL en un arreglo de sentencias sql individuales
 def process_sql_sentences(sql_sentences):
     if(type(sql_sentences)==str):
         sql_sentences=sql_sentences.split(";")
     return sql_sentences
 
+#Ejecuta el arreglo de sentencias sql y retorna los diferentes resultados del arreglo
 def execute_sql_sentences(sql_sentences):
     try:
         sql_sentences=process_sql_sentences(sql_sentences)
@@ -29,7 +31,7 @@ def execute_sql_sentences(sql_sentences):
         conn.commit()
         conn.close
     
-
+#Configuración Inicial del Servidor (Build-Sql_Sentences)
 def initial_config():
     exist_main_tables=execute_sql_sentences(GSql.reinit_server_required)[0][0]>0
     if(not exist_main_tables):
@@ -37,6 +39,7 @@ def initial_config():
         execute_sql_sentences(GSql.desc_initial_server_sql)
         create_build("First Build",GSql.first_build)
 
+#Crea un Build segun una descripción y un conjunto de sentencias; y lo ejecuta
 def create_build(build_desc,sql_sentences): 
     if(build_desc==None or sql_sentences==None):
         return ["Ingrese los datos necesarios"]
@@ -58,6 +61,7 @@ def create_build(build_desc,sql_sentences):
     results=run_build(build_id)
     return results
 
+#Retorna las sentencias sql de los 'build' de cada 'update' realiazado posterior a la fecha indicada
 def get_build_sql_wDate(last_update_date):
     sql_sentence="""SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( 
                     select sql_sentence_id from build_sql_sentences where build_id in 
@@ -68,6 +72,7 @@ def get_build_sql_wDate(last_update_date):
         build_sql_sentences.append(item[0])
     return build_sql_sentences
 
+#Retorna las sentencias sql del 'build' cuyo ID es el especificado
 def get_build_sql_wId(build_id):
     sql_sentence="""SELECT sql_sentence from sql_sentences where sql_sentence_id in 
                 (SELECT sql_sentence_id from build_sql_sentences where build_id = %s ORDER By sequence desc)"""%build_id
@@ -77,6 +82,7 @@ def get_build_sql_wId(build_id):
         build_sql_sentences.append(item[0])
     return build_sql_sentences
 
+#Ejecuta un build especifico cuyo ID es el indicado
 def run_build(build_id):
     results=execute_sql_sentences(get_build_sql_wId(build_id))
     return results

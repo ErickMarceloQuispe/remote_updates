@@ -1,3 +1,4 @@
+#Construcción de builds-sql_sentences
 initial_server_sql=[
     """PRAGMA foreign_keys = ON;""",
     """DROP TABLE IF EXISTS build_sql_sentences;""",
@@ -20,8 +21,14 @@ initial_server_sql=[
             FOREIGN KEY (build_id) REFERENCES builds(build_id),
             FOREIGN KEY (sql_sentence_id) REFERENCES sql_sentences(sql_sentence_id)
         );"""]
+
+#Descripción de las tablas principales creadas con anterioridad
 desc_initial_server_sql=["pragma table_info(builds)","pragma table_info(sql_sentences)","pragma table_info(build_sql_sentences)"]
+
+#Consulta la existencia de las tablas principales
 reinit_server_required=["""select DISTINCT count(tbl_name) from sqlite_master WHERE tbl_name='builds' or tbl_name='sql_sentences' OR tbl_name='build_sql_sentences';"""]
+
+#Primer Build ejecutado al iniciar el servidor
 first_build=[
         """DROP TABLE IF EXISTS updates;""",
         """DROP TABLE IF EXISTS changes;""",
