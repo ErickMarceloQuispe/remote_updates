@@ -39,13 +39,7 @@ first_build=[
                             build_id INTEGER NOT NULL DEFAULT 0,
                             status VARCHAR(255) DEFAULT "Downloaded",
                             created_at timestamp  NOT NULL  DEFAULT current_timestamp,
-                            updated_at timestamp  NOT NULL  DEFAULT current_timestamp,
                             FOREIGN KEY (build_id) REFERENCES builds(build_id));""",
-
-        """CREATE TRIGGER LastUpdate_Updates UPDATE OF update_id,name ON updates
-                BEGIN
-                UPDATE updates SET updated_at=CURRENT_TIMESTAMP WHERE id=id;
-                END;""",
 
         """CREATE TABLE changes(change_id INTEGER PRIMARY KEY AUTOINCREMENT,
                             update_id VARCHAR(255) NOT NULL,

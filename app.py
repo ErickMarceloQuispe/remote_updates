@@ -57,11 +57,10 @@ def build():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Documentar Código 
-#         - Eliminar el uso de updated_at
-#         - Eliminar changes_sql_sentences y build_sql_sentences
+#Pending: - Eliminar changes_sql_sentences y build_sql_sentences
 #         - Evaluar sql_sentences como pedazos largos de código
-#         - Servidor que Implemente los cambios automaticamente 
+#         - Servidor que Implemente los cambios automaticamente
+#         - Revisar el uso de sequence 
 #         - Interfaz para agregar más facil los build
 #         - Seguridad para interfaz gráfica
 
