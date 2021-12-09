@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_wId,get_build_sql_wDate,create_build
+from database.server_database_controller import initial_config,execute_sql_sentences,get_build_sql_wId,get_build_sql_wDate,create_build
 
 app = Flask(__name__)
 
@@ -50,15 +50,15 @@ def get_build_sql_id():
 def build():
     description=request.form.get("description")
     sql_sentences=request.form.get("sql_sentences")
-    results=create_build(description,sql_sentences)
+    is_new_build_needed=request.form.get("create_build")
+    results=create_build(description,sql_sentences,is_new_build_needed)
     return render_template("simple_msg.html",msg=results)
 
 #Inicio de Aplicación en modo Debug
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Eliminar changes_sql_sentences y build_sql_sentences
-#         - Evaluar sql_sentences como pedazos largos de código
+#Pending: - Evaluar sql_sentences como pedazos largos de código  ??
 #         - Servidor que Implemente los cambios automaticamente
 #         - Revisar el uso de sequence 
 #         - Interfaz para agregar más facil los build
