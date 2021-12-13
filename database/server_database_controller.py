@@ -3,18 +3,19 @@ import database.global_sql_sentences as GSql
 
 DB_NAME="database/test_remote.db"
 
-#Convierte los bloques de SQL en un arreglo de sentencias sql individuales
+#Convierte los bloques de SQL en un arreglo de sentencias sql individuales usando como divisor ';\n'
 def dividir_sql_sentences(sql_sentences):
     if(type(sql_sentences)==str):
         sql_sentences=sql_sentences.split(";\n")
     return sql_sentences
 
+#Transforma los simbolos especiales usados en muchas sentencias dentro de otras a simbolos compatibles con SQL
 def tranform_symbols(sql_sentence):
     sql_sentence=sql_sentence.replace("`","'")
     sql_sentence=sql_sentence.replace(";",";\n")
     return sql_sentence
 
-#Ejecuta el arreglo de sentencias sql y retorna los diferentes resultados del arreglo
+#Ejecuta una sentencia sql (la divide por defecto) y retorna los resultados de la ejecución
 def execute_sql_sentences(sql_sentences,dividir=True):
     try:
         if(dividir):
@@ -75,11 +76,9 @@ def get_build_sql_wDate(last_update_date):
                     select sql_sentence_id from build_sql_sentences where build_id in 
                     (select build_id from updates where created_at > "%s" order by created_at));\n"""%last_update_date
     results=execute_sql_sentences(sql_sentence)
-    build_sql_sentences=""
+    build_sql_sentences=[]
     for item in results:
-        if(not ";" in item[0]):
-            item[0]+=";"
-        build_sql_sentences+=str(item[0])
+        build_sql_sentences.append(item[0])
     return build_sql_sentences
 
 #Retorna las sentencias sql del 'build' cuyo ID es el especificado

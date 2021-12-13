@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Advanced SQL Seeds",
+			"name": "Deprecated Tests",
 			"item": [
 				{
 					"name": "Create Build",
@@ -177,7 +177,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Build",
+					"name": "Run Build on Server",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -185,25 +185,20 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "description",
-									"value": "Test Description 1",
-									"type": "text"
-								},
-								{
-									"key": "sql_sentences",
-									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.1\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES( `Hola` )\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+									"key": "build_id",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/add-build",
+							"raw": "localhost:5000/build",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"add-build"
+								"build"
 							]
 						}
 					},
@@ -224,6 +219,44 @@
 					"port": "5000",
 					"path": [
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Build",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "Test Description 1",
+							"type": "text"
+						},
+						{
+							"key": "sql_sentences",
+							"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.15\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255));INSERT INTO test2 VALUES( `Hola` )\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);",
+							"type": "text"
+						},
+						{
+							"key": "create_build",
+							"value": "True",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/add-build",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"add-build"
 					]
 				}
 			},
@@ -308,34 +341,6 @@
 					"port": "5000",
 					"path": [
 						"build-sql-id"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Run Build on Server",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "build_id",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "localhost:5000/build",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"build"
 					]
 				}
 			},
