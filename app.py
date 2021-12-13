@@ -58,10 +58,7 @@ def build():
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Evaluar sql_sentences como pedazos largos de código  ??
-#         - Servidor que Implemente los cambios automaticamente
-#         - Revisar el uso de sequence 
-#         - Interfaz para agregar más facil los build
+#Pending: - Interfaz para agregar más facil los build
 #         - Seguridad para interfaz gráfica
 
 #builds.description , Update_Id , updates.name , changes.description , changes.sequence , sql_sentences(arr) , change_sql_sentences.sequence

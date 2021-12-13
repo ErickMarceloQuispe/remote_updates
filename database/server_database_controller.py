@@ -72,9 +72,9 @@ def create_build(build_desc,sql_sentences,is_new_build_needed):
 
 #Retorna las sentencias sql de los 'build' de cada 'update' realiazado posterior a la fecha indicada
 def get_build_sql_wDate(last_update_date):
-    sql_sentence="""SELECT sql_sentence FROM sql_sentences where sql_sentence_id in ( 
-                    select sql_sentence_id from build_sql_sentences where build_id in 
-                    (select build_id from updates where created_at > "%s" order by created_at));\n"""%last_update_date
+    sql_sentence="""SELECT sql_sentence FROM sql_sentences WHERE sql_sentence_id IN ( 
+                    SELECT sql_sentence_id FROM build_sql_sentences WHERE build_id IN 
+                    (SELECT build_id FROM updates WHERE created_at > "%s" ORDER BY created_at) ORDER BY sequence);\n"""%last_update_date
     results=execute_sql_sentences(sql_sentence)
     build_sql_sentences=[]
     for item in results:
@@ -83,8 +83,8 @@ def get_build_sql_wDate(last_update_date):
 
 #Retorna las sentencias sql del 'build' cuyo ID es el especificado
 def get_build_sql_wId(build_id):
-    sql_sentence="""SELECT sql_sentence from sql_sentences where sql_sentence_id in 
-                (SELECT sql_sentence_id from build_sql_sentences where build_id = %s ORDER By sequence desc);\n"""%build_id
+    sql_sentence="""SELECT sql_sentence FROM sql_sentences WHERE sql_sentence_id IN 
+                (SELECT sql_sentence_id FROM build_sql_sentences WHERE build_id = %s ORDER BY sequence);\n"""%build_id
     results=execute_sql_sentences(sql_sentence)
     sql_sentence_arr=[]
     for item in results:
