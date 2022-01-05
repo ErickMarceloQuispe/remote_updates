@@ -68,6 +68,7 @@ def create_build(build_desc,sql_sentences,is_new_build_needed):
         );"""%count)
     build_id=execute_sql_sentences("SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1;")[0][0]
     results=run_build(build_id)
+    results.append("Proceso de Creación de Build Finalizado")
     return results
 
 #Retorna las sentencias sql de los 'build' de cada 'update' realiazado posterior a la fecha indicada

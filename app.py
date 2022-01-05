@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-from database.server_database_controller import initial_config,execute_sql_sentences,get_build_sql_wId,get_build_sql_wDate,create_build
+from database.server_database_controller import initial_config,execute_sql_sentences,get_build_sql_wId,get_build_sql_wDate,create_build,run_build
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ initial_config()
 
 #Retorna un form sencillo para la ejecución de sentencias SQL
 @app.route('/',methods=["GET"])
-def hello_world():
+def sql_interface():
     return render_template("sql_execute_form.html")
 
 #Ejecuta el sql mandado desde el form
@@ -44,14 +44,32 @@ def get_build_sql_id():
         count+=1
     return (_json)
 
+#Retorna un form sencillo para la adición de un build
+@app.route('/add-build',methods=["GET"])
+def add_build_interface():
+    return render_template("create_build.html")
+
 #Construye un build segun la descripción y las sentencias sql enviadas
 #(La estructura lógica de update-change-sql_sentence depende de las sentencias enviadas)
 @app.route('/add-build',methods=["POST"])
 def build():
     description=request.form.get("description")
-    sql_sentences=request.form.get("sql_sentences")
+    sql_sentences=request.form["sql_sentences"]
+    sql_sentences=sql_sentences.replace(chr(13),'')
     is_new_build_needed=request.form.get("create_build")
     results=create_build(description,sql_sentences,is_new_build_needed)
+    return render_template("simple_msg.html",msg=results)
+
+#Retorna un form sencillo para la ejecución de un build
+@app.route('/build',methods=["GET"])
+def run_build_interface():
+    return render_template("execute_build.html")
+
+#Ejecuta un build en el servidor según un build_id específico
+@app.route('/build',methods=["POST"])
+def run_build_wId():
+    build_id=request.form.get("build_id")
+    results=run_build(build_id)
     return render_template("simple_msg.html",msg=results)
 
 #Inicio de Aplicación en modo Debug

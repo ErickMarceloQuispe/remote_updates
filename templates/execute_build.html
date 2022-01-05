@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block styles %}
+    <link rel="stylesheet" href="/static/execute_build.css">
+{% endblock %}
+{% block title %}
+    Build Execute Form
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form action="/build" method="POST">
+            <label for="build_id">Identificador de Build</label>
+            <input type="number" id="build_id" name="build_id" placeholder="Por ejemplo: 1">
+            <input type="submit" value="Ejecutar Build">
+        </form>
+    </div>
+{% endblock %}

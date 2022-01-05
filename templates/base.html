@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/global_style.css">
+    {% block styles %}
+    {% endblock %}
 
     <title>
         {% block title %}
@@ -13,6 +15,19 @@
     </title>
   </head>
   <body> 
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Ejecutar SQL</a>
+        </li>
+        <li>
+          <a href="/add-build">Crear Build</a>
+        </li>
+        <li>
+          <a href="/build">Ejecutar Build</a>
+        </li>
+      </ul>
+    </nav>
     {% block content %}
     {% endblock %}
   </body>

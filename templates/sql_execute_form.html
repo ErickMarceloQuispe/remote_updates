@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% block styles %}
+    <link rel="stylesheet" href="/static/sql_form.css">
+{% endblock %}
 {% block title %}
     SQL Execute Form
 {% endblock %}
 {% block content %}
-    <h2>Ejemplos:<br> pragma table_info(builds);<br>pragma table_info(sql_sentences);<br>pragma table_info(build_sql_sentences);</h2>
-    <form action="/sql" method="POST">
-        <textarea name="sql_sentence"></textarea>
-        <input type="submit" value="Ejecutar SQL">
-    </form>
-    <form action="/build" method="POST">
-        <input type="number" name="build_id">
-        <input type="submit" value="Ejecutar Build">
-    </form>
+    <div class="container">
+        <form action="/sql" method="POST">
+            <label for="sql_sentences">Sentencias SQL:</label>
+            <textarea id="sql_sentences" name="sql_sentence" placeholder="pragma table_info(builds);"></textarea>
+            <input type="submit" value="Ejecutar SQL">
+        </form>    
+    </div>
 {% endblock %}
