@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+    SQL Execute Form
+{% endblock %}
+{% block content %}
+    <form action="/add-build" method="POST">
+        <input type="text" name="description">
+        <textarea name="sql_sentences"></textarea>
+        <input type="submit" value="Crear Build">
+    </form>
+{% endblock %}

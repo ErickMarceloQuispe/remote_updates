@@ -59,6 +59,7 @@ def create_build(build_desc,sql_sentences):
     execute_sql_sentences(sql_complete)
     build_id=execute_sql_sentences(["SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1"])[0][0]
     results=run_build(build_id)
+    run_downloaded()
     return results
 
 #Retorna las sentencias sql de los 'build' de cada 'update' realiazado posterior a la fecha indicada
@@ -85,4 +86,18 @@ def get_build_sql_wId(build_id):
 #Ejecuta un build especifico cuyo ID es el indicado
 def run_build(build_id):
     results=execute_sql_sentences(get_build_sql_wId(build_id))
+    results.append("Build Ejecutado Correctamente")
     return results
+
+
+#Ejecuta todas las actualizaciones Descargadas y cambia su estado a Instaladas
+def run_downloaded():
+    sql_sentences=(execute_sql_sentences("""
+    SELECT sql_sentence FROM sql_sentences where sql_sentence_id in 
+        ( select sql_sentence_id from change_sql_sentences where change_id in 
+            (SELECT change_id FROM changes WHERE update_id IN 
+                (SELECT update_id from updates where status='Downloaded' ORDER BY created_at) ORDER BY sequence) ORDER BY sequence
+        );"""))
+    for item in sql_sentences:
+        execute_sql_sentences(item[0].replace("`","'"))
+    execute_sql_sentences("UPDATE updates SET status='Installed' WHERE status='Downloaded';")

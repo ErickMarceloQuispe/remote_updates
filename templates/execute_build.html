@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}
+    SQL Execute Form
+{% endblock %}
+{% block content %}
+    <form action="/build" method="POST">
+        <input type="number" name="build_id">
+        <input type="submit" value="Ejecutar Build">
+    </form>
+{% endblock %}

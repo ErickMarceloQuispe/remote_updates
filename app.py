@@ -8,7 +8,7 @@ initial_config()
 
 #Retorna un form sencillo para la ejecución de sentencias SQL
 @app.route('/',methods=["GET"])
-def hello_world():
+def sql_interface():
     return render_template("sql_execute_form.html")
 
 #Ejecuta el sql mandado desde el form
@@ -44,6 +44,11 @@ def get_build_sql_id():
         count+=1
     return (_json)
 
+#Retorna un form sencillo para la adición de un build
+@app.route('/add-build',methods=["GET"])
+def add_build_interface():
+    return render_template("create_build.html")
+
 #Construye un build segun la descripción y las sentencias sql enviadas
 #(La estructura lógica de update-change-sql_sentence depende de las sentencias enviadas)
 @app.route('/add-build',methods=["POST"])
@@ -53,16 +58,23 @@ def build():
     results=create_build(description,sql_sentences)
     return render_template("simple_msg.html",msg=results)
 
+#Retorna un form sencillo para la ejecución de un build
+@app.route('/build',methods=["GET"])
+def run_build_interface():
+    return render_template("execute_build.html")
+
+#Ejecuta un build en el servidor según un build_id específico
+@app.route('/build',methods=["POST"])
+def run_build_wId():
+    build_id=request.form.get("build_id")
+    results=run_build(build_id)
+    return render_template("simple_msg.html",msg=results)
+
 #Inicio de Aplicación en modo Debug
 if __name__ == '__main__':
     app.run(debug=True)
 
-#Pending: - Documentar Código 
-#         - Eliminar el uso de updated_at
-#         - Eliminar changes_sql_sentences y build_sql_sentences
-#         - Evaluar sql_sentences como pedazos largos de código
-#         - Servidor que Implemente los cambios automaticamente 
-#         - Interfaz para agregar más facil los build
+#Pending: - Interfaz para agregar más facil los build
 #         - Seguridad para interfaz gráfica
 
 #builds.description , Update_Id , updates.name , changes.description , changes.sequence , sql_sentences(arr) , change_sql_sentences.sequence
