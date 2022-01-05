@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-from database.server_database_controller import initial_config,execute_sql_sentences,run_build,get_build_sql_wId,get_build_sql_wDate,create_build
+from database.server_database_controller import initial_config,execute_sql_sentences,get_build_sql_wId,get_build_sql_wDate,create_build,run_build
 
 app = Flask(__name__)
 
@@ -55,7 +55,8 @@ def add_build_interface():
 def build():
     description=request.form.get("description")
     sql_sentences=request.form.get("sql_sentences")
-    results=create_build(description,sql_sentences)
+    is_new_build_needed=request.form.get("create_build")
+    results=create_build(description,sql_sentences,is_new_build_needed)
     return render_template("simple_msg.html",msg=results)
 
 #Retorna un form sencillo para la ejecución de un build
