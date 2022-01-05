@@ -54,8 +54,13 @@ def add_build_interface():
 @app.route('/add-build',methods=["POST"])
 def build():
     description=request.form.get("description")
-    sql_sentences=request.form.get("sql_sentences")
+    sql_sentences=request.form["sql_sentences"]
+    sql_sentences=sql_sentences.replace(chr(13),'')
     is_new_build_needed=request.form.get("create_build")
+    if not is_new_build_needed=="False":
+        is_new_build_needed=True
+    else:
+        is_new_build_needed=False
     results=create_build(description,sql_sentences,is_new_build_needed)
     return render_template("simple_msg.html",msg=results)
 

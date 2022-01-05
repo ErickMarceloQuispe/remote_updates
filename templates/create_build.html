@@ -8,6 +8,8 @@
 {% block content %}
     <div class="container">
         <form action="/add-build" method="POST">
+            <label for="create_build">¿Necesita un nuevo build?</label>
+            <input type="text" id="create_build" name="create_build" placeholder="True or False" value="True">
             <label for="description">Descripcion de Build</label>
             <input type="text" id="description" name="description" placeholder="Descripción Demo">
             <label for="sql_sentences">Sentencias SQL de Build</label>
