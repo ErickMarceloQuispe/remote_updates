@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c61fcd73-e832-4578-9e2c-ae696a35945d",
+		"_postman_id": "201d6713-e881-4800-b201-3986ccfd8483",
 		"name": "remote_updates",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -175,39 +175,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Add Build",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "description",
-									"value": "Test Description 1",
-									"type": "text"
-								},
-								{
-									"key": "sql_sentences",
-									"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.1\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES( `Hola` )\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:5000/add-build",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"add-build"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -336,6 +303,39 @@
 					"port": "5000",
 					"path": [
 						"build"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Build",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "Test Description 1",
+							"type": "text"
+						},
+						{
+							"key": "sql_sentences",
+							"value": "INSERT INTO updates(update_id,name,build_id) values(\"v1.1\",\"Primera Actualización\",(SELECT build_id FROM builds ORDER BY build_id DESC LIMIT 1));\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO changes(update_id,description,sequence) VALUES ((SELECT update_id FROM updates ORDER BY created_at DESC LIMIT 1),\"Modulo de Prueba\",2);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"CREATE TABLE test2(test_col VARCHAR(255))\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence) VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),1);\n\nINSERT INTO sql_sentences(sql_sentence) values (\"INSERT INTO test2 VALUES( `Hola` )\");\n\nINSERT INTO change_sql_sentences(change_id,sql_sentence_id,sequence)                VALUES ((SELECT change_id FROM changes ORDER BY change_id DESC LIMIT 1),(SELECT sql_sentence_id FROM sql_sentences ORDER BY sql_sentence_id DESC LIMIT 1),2);",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/add-build",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"add-build"
 					]
 				}
 			},
